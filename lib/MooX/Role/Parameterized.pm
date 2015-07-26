@@ -1,10 +1,9 @@
-use strict;
-use warnings;
-
 package MooX::Role::Parameterized;
 {
-    $MooX::Role::Parameterized::VERSION = '0.01';
+    $MooX::Role::Parameterized::VERSION = '0.02';
 }
+use strict;
+use warnings;
 
 # ABSTRACT: MooX::Role::Parameterized - roles with composition parameters
 
@@ -35,6 +34,10 @@ sub method {
 
 1;
 __END__
+
+=head1 NAME
+
+MooX::Role::Parameterized - roles with composition parameters
 
 =head1 SYNOPSYS
 
