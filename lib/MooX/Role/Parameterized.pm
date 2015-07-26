@@ -1,6 +1,6 @@
 package MooX::Role::Parameterized;
 {
-    $MooX::Role::Parameterized::VERSION = '0.03';
+    $MooX::Role::Parameterized::VERSION = '0.04';
 }
 use strict;
 use warnings;
@@ -14,13 +14,13 @@ our @EXPORT = qw(role method apply);
 my %code_for;
 
 sub apply {
-    my $role = shift;
+    my ( $role, $args, %extra ) = @_;
 
     return if !exists $code_for{$role};
 
-    $code_for{$role}->(@_);
+    $code_for{$role}->($args);
 
-    my $target = caller;
+    my $target = $extra{target} // caller;
     require Moo::Role;
     Moo::Role->apply_roles_to_package( $target, $role );
 }
@@ -62,16 +62,25 @@ MooX::Role::Parameterized - roles with composition parameters
     package My::Class;
 
     use Moo;
+    # experimental way of add roles
+    use MooX::Role::Parameterized::With My::Role => {
+        attr => 'baz',
+        method => 'run'
+    };
+
+    package My::OldClass;
+
+    use Moo;
     use My::Role;
 
-    My::Role->apply({ 
+    My::Role->apply({    # original way of add this role
         attr => 'baz',   # add attribute read-write called 'baz' 
         method => 'run'  # add method called 'run' and return 1024 
     });
 
 =head1 DESCRIPTION
 
-It is a very B<experimental> version of L<MooseX::Role::Parameterized>.
+It is an B<experimental> port of L<MooseX::Role::Parameterized> to L<Moo>.
 
 =head1 FUNCTIONS
 
@@ -92,18 +101,9 @@ target class, and will receive the parameter list.
 
 Add one method based on the parameter list, for example.
 
-=head1 TODO
+=head1 MooX::Role::Parameterized::With
 
-I don't know yet how to substute this two statements in just one:
-
-    use My::Role;
-
-    My::Role->apply({ 
-        attr => 'baz',   # add attribute read-write called 'baz' 
-        method => 'run'  # add method called 'run' and return 1024 
-    });
-
-I am open to ideas. I try to play with the C<import> but the final result was ugly...
+See L<MooX::Role::Parameterized::With> package to easily load and apply roles.
 
 =head1 SEE ALSO
 

@@ -8,7 +8,9 @@ README
 README.md
 dist.ini
 lib/MooX/Role/Parameterized.pm
+lib/MooX/Role/Parameterized/With.pm
 t/01_load.t
 t/02_basic.t
+t/03_with.t
 t/lib/Bar.pm
 t/lib/Foo.pm

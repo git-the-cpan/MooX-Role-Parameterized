@@ -4,7 +4,7 @@ use Moo::Role;
 use MooX::Role::Parameterized;
 
 role {
-    my $params = shift;
+    my ($params) = @_;
 
     has $params->{attr} => ( is => 'rw' );
 

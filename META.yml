@@ -15,9 +15,10 @@ meta-spec:
 name: MooX-Role-Parameterized
 requires:
   Class::Method::Modifiers: 0
+  List::MoreUtils: 0
   Moo: 0
 resources:
   bugtracker: https://github.com/peczenyj/MooX-Role-Parameterized/issues
   homepage: https://github.com/peczenyj/MooX-Role-Parameterized
   repository: git://github.com/peczenyj/MooX-Role-Parameterized.git
-version: 0.03
+version: 0.04

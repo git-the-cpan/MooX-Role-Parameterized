@@ -22,12 +22,13 @@ my %WriteMakefileArgs = (
   "NAME" => "MooX::Role::Parameterized",
   "PREREQ_PM" => {
     "Class::Method::Modifiers" => 0,
+    "List::MoreUtils" => 0,
     "Moo" => 0
   },
   "TEST_REQUIRES" => {
     "Test::More" => 0
   },
-  "VERSION" => "0.03",
+  "VERSION" => "0.04",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -36,6 +37,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Class::Method::Modifiers" => 0,
+  "List::MoreUtils" => 0,
   "Moo" => 0,
   "Test::More" => 0
 );
