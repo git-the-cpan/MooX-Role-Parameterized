@@ -1,6 +1,6 @@
 package MooX::Role::Parameterized;
 {
-    $MooX::Role::Parameterized::VERSION = '0.02';
+    $MooX::Role::Parameterized::VERSION = '0.03';
 }
 use strict;
 use warnings;
@@ -8,8 +8,7 @@ use warnings;
 # ABSTRACT: MooX::Role::Parameterized - roles with composition parameters
 
 use Exporter qw(import);
-use Class::Method::Modifiers qw(after install_modifier);
-
+use Class::Method::Modifiers qw();
 our @EXPORT = qw(role method apply);
 
 my %code_for;
@@ -20,6 +19,10 @@ sub apply {
     return if !exists $code_for{$role};
 
     $code_for{$role}->(@_);
+
+    my $target = caller;
+    require Moo::Role;
+    Moo::Role->apply_roles_to_package( $target, $role );
 }
 
 sub role(&) {
@@ -66,8 +69,6 @@ MooX::Role::Parameterized - roles with composition parameters
         method => 'run'  # add method called 'run' and return 1024 
     });
 
-    with 'My::Role';
-
 =head1 DESCRIPTION
 
 It is a very B<experimental> version of L<MooseX::Role::Parameterized>.
@@ -80,6 +81,8 @@ This package exports three subroutines C<apply>, C<role> and C<method>.
 
 When called, will apply the L</role> on the current package. The behavior depends of the parameter list.
 
+This will install the role in the target package. Does not need call C<with>.
+
 =head2 role
 
 This function accepts one code block. Will execute this code then we apply the Role in the 
@@ -91,7 +94,7 @@ Add one method based on the parameter list, for example.
 
 =head1 TODO
 
-I don't know yet how to substute this three statements in just one:
+I don't know yet how to substute this two statements in just one:
 
     use My::Role;
 
@@ -99,8 +102,6 @@ I don't know yet how to substute this three statements in just one:
         attr => 'baz',   # add attribute read-write called 'baz' 
         method => 'run'  # add method called 'run' and return 1024 
     });
-
-    with 'My::Role';
 
 I am open to ideas. I try to play with the C<import> but the final result was ugly...
 
