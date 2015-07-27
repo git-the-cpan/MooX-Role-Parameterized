@@ -26,9 +26,10 @@ my %WriteMakefileArgs = (
     "Moo" => 0
   },
   "TEST_REQUIRES" => {
+    "Test::Exception" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.041",
+  "VERSION" => "0.05",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -39,6 +40,7 @@ my %FallbackPrereqs = (
   "Class::Method::Modifiers" => 0,
   "List::MoreUtils" => 0,
   "Moo" => 0,
+  "Test::Exception" => 0,
   "Test::More" => 0
 );
 

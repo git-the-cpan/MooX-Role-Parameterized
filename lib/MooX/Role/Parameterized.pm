@@ -1,6 +1,6 @@
 package MooX::Role::Parameterized;
 {
-    $MooX::Role::Parameterized::VERSION = '0.041';
+    $MooX::Role::Parameterized::VERSION = '0.05';
 }
 use strict;
 use warnings;

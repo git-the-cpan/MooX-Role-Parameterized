@@ -12,5 +12,8 @@ lib/MooX/Role/Parameterized/With.pm
 t/01_load.t
 t/02_basic.t
 t/03_with.t
+t/04_requires.t
+t/05_requires_fail.t
+t/06_with_requires.t
 t/lib/Bar.pm
-t/lib/Foo.pm
+t/lib/BarWithRequires.pm
