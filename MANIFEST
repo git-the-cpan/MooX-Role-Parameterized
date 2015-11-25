@@ -15,5 +15,8 @@ t/03_with.t
 t/04_requires.t
 t/05_requires_fail.t
 t/06_with_requires.t
+t/99_bug_role_apply_twice.t
 t/lib/Bar.pm
 t/lib/BarWithRequires.pm
+t/lib/TheClass.pm
+t/lib/TheParameterizedRole.pm
