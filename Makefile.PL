@@ -21,7 +21,6 @@ my %WriteMakefileArgs = (
   "LICENSE" => "mit",
   "NAME" => "MooX::Role::Parameterized",
   "PREREQ_PM" => {
-    "Class::Method::Modifiers" => 0,
     "List::MoreUtils" => 0,
     "Moo" => 0
   },
@@ -29,7 +28,7 @@ my %WriteMakefileArgs = (
     "Test::Exception" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.06",
+  "VERSION" => "0.07",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -37,7 +36,6 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Class::Method::Modifiers" => 0,
   "List::MoreUtils" => 0,
   "Moo" => 0,
   "Test::Exception" => 0,

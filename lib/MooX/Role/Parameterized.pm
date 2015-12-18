@@ -1,6 +1,6 @@
 package MooX::Role::Parameterized;
 {
-    $MooX::Role::Parameterized::VERSION = '0.06';
+    $MooX::Role::Parameterized::VERSION = '0.07';
 }
 use strict;
 use warnings;
@@ -8,10 +8,12 @@ use warnings;
 # ABSTRACT: MooX::Role::Parameterized - roles with composition parameters
 
 use Exporter qw(import);
-use Class::Method::Modifiers qw();
-our @EXPORT = qw(role method apply);
+use Module::Runtime qw(use_module);
+our @EXPORT = qw(role method apply hasp);
 
 my %code_for;
+
+sub hasp { }
 
 sub apply {
     my ( $role, $args, %extra ) = @_;
@@ -20,11 +22,24 @@ sub apply {
 
     $args = [$args] if ref($args) ne ref( [] );
 
+    my $target = $extra{target} // caller;
+
+    {
+        no strict 'refs';
+        no warnings 'redefine';
+
+        # necessary for magic
+        *{ $role . '::hasp' }   = *{ $target . '::has' };
+        *{ $role . '::method' } = sub {
+            my ( $name, $code ) = @_;
+            no strict 'refs';
+            *{"$target\::$name"} = $code;
+        };
+    }
+
     $code_for{$role}->($_) foreach ( @{$args} );
 
-    my $target = $extra{target} // caller;
-    require Moo::Role;
-    Moo::Role->apply_roles_to_package( $target, $role );
+    use_module('Moo::Role')->apply_roles_to_package( $target, $role );
 }
 
 sub role(&) {
@@ -33,9 +48,7 @@ sub role(&) {
     $code_for{$package} = shift;
 }
 
-sub method {
-    goto &Class::Method::Modifiers::fresh;
-}
+sub method { }
 
 1;
 __END__
@@ -54,7 +67,7 @@ MooX::Role::Parameterized - roles with composition parameters
     role {
         my $params = shift;
 
-        has $params->{attr} => ( is => 'rw' );
+        hasp $params->{attr} => ( is => 'rw' );
 
         method $params->{method} => sub {
             1024;
@@ -90,7 +103,12 @@ It is an B<experimental> port of L<MooseX::Role::Parameterized> to L<Moo>.
 
 =head1 FUNCTIONS
 
-This package exports three subroutines C<apply>, C<role> and C<method>.
+This package exports four subroutines: C<hasp>, C<apply>, C<role> and C<method>.
+
+=head2 hasp
+
+IMPORTANT: until the version 0.06 we have a terrible bug when you try to add the same role in two or more different classes.
+To avoid this we should not call the C<has> method to specify attributes but the method C<hasp> (means 'has parameterized').
 
 =head2 apply
 
