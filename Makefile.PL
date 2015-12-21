@@ -23,13 +23,14 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "List::MoreUtils" => 0,
+    "Module::Runtime" => 0,
     "Moo" => 0
   },
   "TEST_REQUIRES" => {
     "Test::Exception" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.08",
+  "VERSION" => "0.081",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -39,6 +40,7 @@ my %WriteMakefileArgs = (
 my %FallbackPrereqs = (
   "Carp" => 0,
   "List::MoreUtils" => 0,
+  "Module::Runtime" => 0,
   "Moo" => 0,
   "Test::Exception" => 0,
   "Test::More" => 0
