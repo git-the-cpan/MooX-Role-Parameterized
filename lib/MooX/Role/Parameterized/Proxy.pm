@@ -1,6 +1,6 @@
 package MooX::Role::Parameterized::Proxy;
 {
-    $MooX::Role::Parameterized::Proxy::VERSION = '0.081';
+    $MooX::Role::Parameterized::Proxy::VERSION = '0.082';
 }
 use strict;
 use warnings;
